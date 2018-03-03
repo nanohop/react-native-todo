@@ -8,27 +8,25 @@ import {
 
 export default class TodoItem extends Component {
 
-  state = {
-    completed: false
-  }
-
   toggleTodo = () => {
-    this.setState({
-      completed: !this.state.completed
-    })
+    this.props.updateTodo(
+      this.props.item.id,
+      !this.props.item.completed
+    )
   }
 
   render() {
+    const item = this.props.item
     return (
       <TouchableOpacity 
         onPress={this.toggleTodo}
         style={styles.itemButton}
       >
         <Text style={[styles.item, {
-          opacity: (this.state.completed ? 0.5 : 1.0),
-          textDecorationLine: (this.state.completed ? 'line-through' : 'none')
+          opacity: (item.completed ? 0.5 : 1.0),
+          textDecorationLine: (item.completed ? 'line-through' : 'none')
         }]}>
-          {this.props.title}
+          {item.task}
         </Text>
       </TouchableOpacity>
     )

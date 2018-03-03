@@ -23,12 +23,11 @@ export default class ToDoList extends Component {
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      const tasksFromNetwork = ["First", "Second"]
-      this.setState({
-        items: tasksFromNetwork
+    fetch("http://localhost:3000/items.json")
+      .then(response => response.json())
+      .then(items => {
+        this.setState({ items })
       })
-    }, 2000)
   }
 
   addItem = () => {
@@ -39,8 +38,39 @@ export default class ToDoList extends Component {
   }
 
   saveItem = newTask => {
-    this.setState({
-      items: [...this.state.items, newTask]
+    const headers = new Headers()
+    headers.append('Accept', 'application/json')
+    headers.append('Content-Type', 'application/json')
+
+    fetch("http://localhost:3000/items.json", {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        task: newTask
+      })
+    })
+    .then(response => response.json())
+    .then(json => {
+      this.setState({ items: json })
+    })
+  }
+
+  updateTodo = (id, completed) => {
+    const headers = new Headers()
+    headers.append('Accept', 'application/json')
+    headers.append('Content-Type', 'application/json')
+
+    fetch("http://localhost:3000/items.json", {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify({
+        id,
+        completed
+      })
+    })
+    .then(response => response.json())
+    .then(json => {
+      this.setState({ items: json })
     })
   }
 
@@ -72,9 +102,12 @@ export default class ToDoList extends Component {
             data={this.state.items}
             style={styles.content}
             renderItem={row => {
-              return <TodoItem title={row.item} />
+              return <TodoItem 
+                item={row.item} 
+                updateTodo={this.updateTodo}
+              />
             }}
-            keyExtractor={item => item}
+            keyExtractor={item => item.id}
           />
 
           <View style={styles.contentFooter}>
