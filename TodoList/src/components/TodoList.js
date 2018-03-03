@@ -12,8 +12,8 @@ import {
 import { Button, Text as NBText } from 'native-base'
 
 import TodoItem from './TodoItem'
-
 import CheckImage from '../images/check.png'
+import { items } from '../lib/api'
 
 export default class ToDoList extends Component {
 
@@ -33,11 +33,10 @@ export default class ToDoList extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:3000/items.json")
-      .then(response => response.json())
-      .then(items => {
-        this.setState({ items })
-      })
+    items('GET')
+    .then(items => {
+      this.setState({ items })
+    })
   }
 
   addItem = () => {
@@ -48,55 +47,21 @@ export default class ToDoList extends Component {
   }
 
   saveItem = newTask => {
-    const headers = new Headers()
-    headers.append('Accept', 'application/json')
-    headers.append('Content-Type', 'application/json')
-
-    fetch("http://localhost:3000/items.json", {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        task: newTask
-      })
-    })
-    .then(response => response.json())
+    items('POST', { task: newTask })
     .then(json => {
       this.setState({ items: json })
     })
   }
 
   updateTodo = (id, completed) => {
-    const headers = new Headers()
-    headers.append('Accept', 'application/json')
-    headers.append('Content-Type', 'application/json')
-
-    fetch("http://localhost:3000/items.json", {
-      method: 'PUT',
-      headers,
-      body: JSON.stringify({
-        id,
-        completed
-      })
-    })
-    .then(response => response.json())
+    items('PUT', { id, completed })
     .then(json => {
       this.setState({ items: json })
     })
   }
 
   deleteTodo = (id) => {
-    const headers = new Headers()
-    headers.append('Accept', 'application/json')
-    headers.append('Content-Type', 'application/json')
-
-    fetch("http://localhost:3000/items.json", {
-      method: 'DELETE',
-      headers,
-      body: JSON.stringify({
-        id
-      })
-    })
-    .then(response => response.json())
+    items('DELETE', { id })
     .then(json => {
       this.setState({ items: json })
     })
