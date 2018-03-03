@@ -10,6 +10,11 @@ import TodoItem from './TodoItem'
 export default class ToDoList extends Component {
 
   render() {
+    console.log("Log");
+    console.warn("Warning");
+    console.error("Error");
+
+
     return (
       <View style={styles.container}>
         <Text style={styles.header}>
