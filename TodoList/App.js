@@ -27,7 +27,8 @@ const TabNav = TabNavigator({
   tabBarPosition: 'bottom',
   tabBarOptions: {
     activeTintColor: '#0066cc'
-  }
+  },
+  ...TabNavigator.Presets.iOSBottomTabs
 })
 
 type Props = {};

@@ -6,6 +6,8 @@ import {
   TouchableOpacity
 } from 'react-native';
 
+import { Icon } from 'native-base'
+
 export default class TodoItem extends Component {
 
   toggleTodo = () => {
@@ -22,6 +24,7 @@ export default class TodoItem extends Component {
         onPress={this.toggleTodo}
         style={styles.itemButton}
       >
+        <Icon name={item.completed ? 'checkmark-circle' : 'radio-button-off'} />
         <Text style={[styles.item, {
           opacity: (item.completed ? 0.5 : 1.0),
           textDecorationLine: (item.completed ? 'line-through' : 'none')
@@ -40,6 +43,9 @@ const styles = StyleSheet.create({
   },
   itemButton: {
     borderBottomWidth: 1,
-    borderColor: '#ccc'
+    borderColor: '#ccc',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: 10
   }
 });
