@@ -23,6 +23,7 @@ export default class About extends Component {
   render() {
     return (
       <View style={{flex: 1}}>
+
         <Text style={{
           fontSize: 20,
           textAlign: 'center',
@@ -30,6 +31,15 @@ export default class About extends Component {
         }}>
           About
         </Text>
+
+        <Text style={{
+          fontSize: 14,
+          textAlign: 'center',
+          padding: 20
+        }}>
+          This screen was made for Android
+        </Text>
+
       </View>
     )
   }

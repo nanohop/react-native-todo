@@ -6,7 +6,8 @@ import {
   FlatList,
   StatusBar,
   ActivityIndicator,
-  Image
+  Image,
+  Platform
 } from 'react-native';
 
 import { Button, Text as NBText } from 'native-base'
@@ -106,7 +107,12 @@ export default class ToDoList extends Component {
 
           <View style={styles.contentFooter}>
             <Button onPress={this.addItem}>
-              <NBText>Add Item</NBText>
+              <NBText style={
+                Platform.select({
+                  ios: { minWidth: 200 },
+                  android: { width: 200, textAlign: 'center' }
+                })
+              }>Add Item</NBText>
             </Button>
           </View>
 
