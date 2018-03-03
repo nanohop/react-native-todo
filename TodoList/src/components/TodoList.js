@@ -10,20 +10,16 @@ import TodoItem from './TodoItem'
 export default class ToDoList extends Component {
 
   render() {
-    console.log("Log");
-    console.warn("Warning");
-    console.error("Error");
-
-
+    const thirdTask = "Bring it back"
     return (
       <View style={styles.container}>
         <Text style={styles.header}>
           Todo List
         </Text>
         <View style={styles.content}>
-          <TodoItem />
-          <TodoItem />
-          <TodoItem />
+          <TodoItem title={"1. Go to the store"} />
+          <TodoItem title={"2. " + "Get the milk"}/>
+          <TodoItem title={`3. ${thirdTask}`} />
         </View>
       </View>
     );
