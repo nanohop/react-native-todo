@@ -10,6 +10,13 @@ import TodoItem from './TodoItem'
 export default class ToDoList extends Component {
 
   render() {
+
+    const items = [
+      "1. Go to the store",
+      "2. Get the milk",
+      "3. Bring it back"
+    ]
+
     const thirdTask = "Bring it back"
     return (
       <View style={styles.container}>
@@ -17,9 +24,11 @@ export default class ToDoList extends Component {
           Todo List
         </Text>
         <View style={styles.content}>
-          <TodoItem title={"1. Go to the store"} />
-          <TodoItem title={"2. " + "Get the milk"}/>
-          <TodoItem title={`3. ${thirdTask}`} />
+          {
+            items.map((item, index) => {
+              return <TodoItem title={item} key={index} />
+            })
+          }
         </View>
       </View>
     );
