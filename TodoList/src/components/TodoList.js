@@ -7,9 +7,19 @@ import {
   StatusBar
 } from 'react-native';
 
+import { Button, Text as NBText } from 'native-base'
+
 import TodoItem from './TodoItem'
 
 export default class ToDoList extends Component {
+
+  static navigationOptions = {
+    header: null
+  }
+
+  addItem = () => {
+    this.props.navigation.navigate('AddTodo')
+  }
 
   render() {
 
@@ -45,7 +55,9 @@ export default class ToDoList extends Component {
           />
 
           <View style={styles.contentFooter}>
-            <Text>Content Footer</Text>
+            <Button onPress={this.addItem}>
+              <NBText>Add Item</NBText>
+            </Button>
           </View>
 
         </View>
@@ -92,10 +104,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   contentFooter: {
-    height: 50,
-    borderTopWidth: 1,
-    borderColor: '#aaa',
-    alignItems: 'center',
-    justifyContent: 'center'
+    padding: 20,
+    justifyContent: 'flex-end',
+    flexDirection: 'row'
   }
 });
