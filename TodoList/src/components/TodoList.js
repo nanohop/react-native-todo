@@ -10,7 +10,7 @@ import {
   Platform
 } from 'react-native';
 
-import { Button, Text as NBText } from 'native-base'
+import { Button, Text as NBText, Segment } from 'native-base'
 
 import TodoItem from './TodoItem'
 import CheckImage from '../images/check.png'
@@ -30,7 +30,8 @@ export default class ToDoList extends Component {
   }
  
   state = {
-    items: null
+    items: null,
+    filter: 'All'
   }
 
   componentDidMount() {
@@ -68,6 +69,20 @@ export default class ToDoList extends Component {
     })
   }
 
+  filteredItems = () => {
+    if(this.state.filter === 'Todo') {
+      return this.state.items.filter(i => {
+        return !i.completed
+      })
+    }
+    if(this.state.filter === 'Complete') {
+      return this.state.items.filter(i => {
+        return i.completed
+      })
+    }
+    return this.state.items
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -81,7 +96,28 @@ export default class ToDoList extends Component {
         <View style={styles.contentWrapper}>
 
           <View style={styles.contentHeader}>
-            <Text>Content Header</Text>
+            <Segment>
+              <Button 
+                first 
+                active={this.state.filter === 'All'}
+                onPress={() => this.setState({ filter: 'All' })}
+              >
+                <NBText>All</NBText>
+              </Button>
+              <Button 
+                active={this.state.filter === 'Todo'}
+                onPress={() => this.setState({ filter: 'Todo' })}
+              >
+                <NBText>Todo</NBText>
+              </Button>
+              <Button 
+                last 
+                active={this.state.filter === 'Complete'}
+                onPress={() => this.setState({ filter: 'Complete' })}
+              >
+                <NBText>Complete</NBText>
+              </Button>
+            </Segment>
           </View>
 
           {
@@ -93,7 +129,7 @@ export default class ToDoList extends Component {
           }
 
           <FlatList 
-            data={this.state.items}
+            data={this.filteredItems()}
             style={styles.content}
             renderItem={row => {
               return <TodoItem 
