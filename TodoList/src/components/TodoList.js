@@ -145,7 +145,7 @@ export default class ToDoList extends Component {
             <Button onPress={this.addItem}>
               <NBText style={
                 Platform.select({
-                  ios: { minWidth: 200 },
+                  ios: { maxWidth: 200, textAlign: 'center' },
                   android: { width: 200, textAlign: 'center' }
                 })
               }>Add Todo Item</NBText>
