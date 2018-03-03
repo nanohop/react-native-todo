@@ -148,7 +148,7 @@ export default class ToDoList extends Component {
                   ios: { minWidth: 200 },
                   android: { width: 200, textAlign: 'center' }
                 })
-              }>Add Item</NBText>
+              }>Add Todo Item</NBText>
             </Button>
           </View>
 
