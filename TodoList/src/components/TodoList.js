@@ -4,7 +4,8 @@ import {
   Text,
   View,
   FlatList,
-  StatusBar
+  StatusBar,
+  ActivityIndicator
 } from 'react-native';
 
 import { Button, Text as NBText } from 'native-base'
@@ -18,11 +19,16 @@ export default class ToDoList extends Component {
   }
 
   state = {
-    items: [
-      "1. Go to the store",
-      "2. Get the milk",
-      "3. Bring it back"
-    ]
+    items: null
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      const tasksFromNetwork = ["First", "Second"]
+      this.setState({
+        items: tasksFromNetwork
+      })
+    }, 2000)
   }
 
   addItem = () => {
@@ -53,6 +59,14 @@ export default class ToDoList extends Component {
           <View style={styles.contentHeader}>
             <Text>Content Header</Text>
           </View>
+
+          {
+            !this.state.items && <ActivityIndicator 
+              size="large"
+              color="#2288ee"
+              style={{ marginTop: 20 }}
+            />
+          }
 
           <FlatList 
             data={this.state.items}
