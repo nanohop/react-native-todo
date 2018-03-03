@@ -17,6 +17,10 @@ export default class TodoItem extends Component {
     )
   }
 
+  deleteTodo = () => {
+    this.props.deleteTodo(this.props.item.id)
+  }
+
   render() {
     const item = this.props.item
     return (
@@ -31,6 +35,9 @@ export default class TodoItem extends Component {
         }]}>
           {item.task}
         </Text>
+        <TouchableOpacity onPress={this.deleteTodo}>
+          <Icon name="trash" style={{ color: 'red', paddingRight: 10 }} />
+        </TouchableOpacity>
       </TouchableOpacity>
     )
   }
@@ -39,7 +46,8 @@ export default class TodoItem extends Component {
 
 const styles = StyleSheet.create({
   item: {
-    padding: 20
+    padding: 20,
+    flex: 1
   },
   itemButton: {
     borderBottomWidth: 1,

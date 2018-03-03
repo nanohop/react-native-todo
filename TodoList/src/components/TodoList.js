@@ -84,6 +84,24 @@ export default class ToDoList extends Component {
     })
   }
 
+  deleteTodo = (id) => {
+    const headers = new Headers()
+    headers.append('Accept', 'application/json')
+    headers.append('Content-Type', 'application/json')
+
+    fetch("http://localhost:3000/items.json", {
+      method: 'DELETE',
+      headers,
+      body: JSON.stringify({
+        id
+      })
+    })
+    .then(response => response.json())
+    .then(json => {
+      this.setState({ items: json })
+    })
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -115,6 +133,7 @@ export default class ToDoList extends Component {
               return <TodoItem 
                 item={row.item} 
                 updateTodo={this.updateTodo}
+                deleteTodo={this.deleteTodo}
               />
             }}
             keyExtractor={item => item.id}
